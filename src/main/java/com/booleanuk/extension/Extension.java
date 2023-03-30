@@ -4,18 +4,24 @@ import com.booleanuk.helpers.ExtensionBase;
 
 public class Extension extends ExtensionBase {
     /*  1.
-        We're going to improve our cake baking capabilities!
+       We're going to improve our cake baking capabilities!
 
-        Create a public method named timerStatus that accepts one parameter:
-        - the number of minutes left on the timer
+       Create a public method named timerStatus that accepts one parameter:
+       - the number of minutes left on the timer
 
-        The method must return "The cake is ready!" if the remaining minutes is 0,
-        "The cake is still baking!" if there are any remaining minutes left,
-        and "The timer finished ages ago!" if the remaining minutes is a negative number
-     */
-
-
-
+       The method must return "The cake is ready!" if the remaining minutes is 0,
+       "The cake is still baking!" if there are any remaining minutes left,
+       and "The timer finished ages ago!" if the remaining minutes is a negative number
+    */
+    public String timerStatus(int remainingMinutes){
+        if (remainingMinutes > 0) {
+            return "The cake is still baking!";
+        } else if (remainingMinutes < 0) {
+            return "The timer finished ages ago!";
+        } else {
+            return "The cake is ready!";
+        }
+    }
 
     /*  2.
         Create a method named estimatePrepTime that accepts two parameters:
@@ -26,6 +32,12 @@ public class Extension extends ExtensionBase {
         provided and the prep time per ingredient.
         If a prep time of 0 is provided, the method should assume each ingredient takes 2 minutes to prepare.
      */
+    public int estimatePrepTime(String[] ingredients, int timePerIngredient) {
+        if (timePerIngredient == 0) {
+            timePerIngredient = 2;
+        }
+        return ingredients.length * timePerIngredient;
+    }
 
 
 
@@ -34,14 +46,17 @@ public class Extension extends ExtensionBase {
         - an array of ingredients that will always contain 3 ingredients
         - the number of layers the cake has
 
-        The cake will need 100g of sugar per layer, if that ingredient is present in the provided list of ingredients
-        and 0g if that ingredient is missing.
+        The cake will need 100g of sugar per layer, if that ingredient is present in the provided list of ingredients.
         The method should return the number of grams of sugar needed to make the cake.
-
-        You may need to use programming techniques we have yet to cover in the course to solve this task.
      */
-
-
-
-
+    public int calculateGramsOfSugar(String[] ingredients, int numberOfLayers) {
+        int sugar = 0;
+        for (String ingredient : ingredients) {
+            if (ingredient.equals("sugar")) {
+                sugar = 100;
+                break; // Can be omitted but for large arrays this would make it more efficient by exiting the loop early.
+            }
+        }
+        return numberOfLayers * sugar;
+    }
 }
